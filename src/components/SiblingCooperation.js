@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 
-function ChildComponent({ onAction }) {
+function SiblingOne({ onDance }) {
     const handleClick = () => {
         // some data that is sent to the parent component
-        const data = 'CAN YOU BELIEVE IT?'
-        onAction(data)
+        const data = ["I'm dancing", "I'm coding", "I'm laughing up a storm because we do not care no smore"]
+        onDance(data)
     }
 
     return (
@@ -14,19 +14,25 @@ function ChildComponent({ onAction }) {
     )
 }
 
+function SiblingTwo({ message }) {
+    return (
+        <div>
+            <p>MESSAGE FROM Sibling A: {message}</p>
+        </div>
+    )
+}
 
-export default function SiblingCooperation() {
-    const [message, setMessage] = useState('')
+export default function Parent() {
+    const [message, setMessage] = useState("")
 
-    const handleAction = (dataFromChild) => {
-        setMessage(dataFromChild)
+    const handleDance = (data) => {
+        setMessage(data)
     }
 
     return (
         <div>
-            <p>MESSAGE FROM CHILD</p>
-            <ChildComponent onAction={handleAction} />
-            <p>{message}</p>
+            <SiblingOne onDance={handleDance} />
+            {message.map && <SiblingTwo message={message} />}
         </div>
     )
 }
